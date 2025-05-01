@@ -8,10 +8,13 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "jsEngine": "hermes",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.your-org.philsca-dormitory"
     },
     "android": {
+      "package": "com.yourorg.philscadormitory",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -36,6 +39,23 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "supabaseUrl": "https://zwfhofxvqyahgeuqcemh.supabase.co",
+      "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3ZmhvZnh2cXlhaGdldXFjZW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQxMTg3MzcsImV4cCI6MjA1OTY5NDczN30.zH_NFHnYxrYAfzoai__6smaKb3FrLDj2sLtGJKgXe6w",
+      "eas": {
+        "projectId": "f1f0015f-d636-482e-8dc3-d840f296d445"
+      }
+    },
+    "owner": "scavvv13",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/f1f0015f-d636-482e-8dc3-d840f296d445"
     }
   }
 }
