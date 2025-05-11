@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { supabase } from "@/lib/supabase";
 import * as WebBrowser from "expo-web-browser";
+import { Modal, Pressable } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -22,6 +23,7 @@ export default function AuthScreen() {
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const handleAuth = async () => {
     setLoading(true);
@@ -29,21 +31,21 @@ export default function AuthScreen() {
 
     try {
       if (isLogin) {
-        // Sign in
         const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
-
         if (error) throw error;
       } else {
-        // Sign up
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
         });
-
+        console.log("SignUp response:", { data, error });
         if (error) throw error;
+
+        // Show confirmation modal
+        setShowConfirmModal(true);
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -133,6 +135,33 @@ export default function AuthScreen() {
             </Text>
           </TouchableOpacity>
         </View>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={showConfirmModal}
+          onRequestClose={() => setShowConfirmModal(false)}
+        >
+          <View className="flex-1 justify-center items-center bg-black bg-opacity-50 px-6">
+            <View className="bg-white rounded-xl p-6 w-full">
+              <Text className="text-xl font-semibold mb-4 text-center">
+                Confirm Your Email
+              </Text>
+              <Text className="text-gray-700 mb-6 text-center">
+                A confirmation email has been sent to {email}. Please check your
+                inbox and verify your email before signing in.
+              </Text>
+              <Pressable
+                onPress={() => {
+                  setShowConfirmModal(false);
+                  setIsLogin(true);
+                }}
+                className="bg-blue-500 rounded-lg p-3 items-center"
+              >
+                <Text className="text-white font-medium">Okay</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
       </ScrollView>
     </KeyboardAvoidingView>
   );
