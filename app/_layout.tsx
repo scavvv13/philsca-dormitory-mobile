@@ -6,6 +6,7 @@ import { SessionProvider } from "./context/SessionContext";
 import AuthScreen from "./components/AuthScreen";
 import { View, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import "../global.css";
 
 export default function RootLayout() {
   const [initializing, setInitializing] = useState(true);
